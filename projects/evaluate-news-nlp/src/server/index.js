@@ -14,7 +14,8 @@ console.log(__dirname)
 //api credentials
 const baseUrl = 'https://api.meaningcloud.com/sentiment-2.1';
 const apiKey = process.env.API_KEY;
-console.log(`Your API key is ${process.env.API_KEY}`);
+
+console.log(`Your API key is ${apiKey}`);
 
 
 
