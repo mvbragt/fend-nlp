@@ -2,42 +2,43 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <script src="/main.js"></script>
         <title>Test</title>
-        <link rel="stylesheet" href="../styles/resets.scss">
-        <link rel="stylesheet" href="../styles/base.scss">
-        <link rel="stylesheet" href="../styles/header.scss">
-        <link rel="stylesheet" href="../styles/form.scss">
-        <link rel="stylesheet" href="../styles/footer.scss">
     </head>
 
     <body>
+    <header>
+        <div class="logo">
+            <!-- Add your logo here -->
+            Logo
+        </div>
+        <nav>
+            <!-- Add navigation items here if necessary -->
+            Navigation
+        </nav>
+    </header>
 
-        <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
-            </div>
-        </header>
+    <main>
+        <section>
+            <h1>Enter Article URL for Sentiment Analysis</h1>
+            <form id="form" class="form" onsubmit="return handleSubmit(event)">
+                <label for="URL">Article URL:</label>
+                <input id="URL" type="text" name="inputURL" value="" placeholder="Enter your URL here">
+                <input type="submit" value="Submit">
+            </form>
+        </section>
 
-        <main>
-            <section>
-                <form class="" onsubmit="return handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
-                    <input type="submit" name="" value="submit" onclick="return handleSubmit(event)" onsubmit="return handleSubmit(event)">
-                </form>
-            </section>
-
-            <section>
-                <strong>Form Results:</strong>
+        <section class="results-outer">
+            <div class="results">
+                <strong>Evaluation Results:</strong>
+                <p>your request was:</p>
                 <div id="results"></div>
-            </section>
-        </main>
+            </div>
+        </section>
+    </main>
 
-        <footer>
-            <p>This is a footer</p>
-        </footer>
-
+    <footer>
+        <p>This is a footer</p>
+    </footer>
     </body>
 </html>

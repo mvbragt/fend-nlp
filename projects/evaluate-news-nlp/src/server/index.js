@@ -1,34 +1,69 @@
+const FormData = require('form-data');
 const dotenv = require('dotenv');
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mockAPIResponse = require('./mockAPI.js');
+
 dotenv.config();
 
-var path = require('path')
-const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(express.static('dist'));
 
-const app = express()
-
-app.use(express.static('dist'))
-
-console.log(__dirname)
-
-//api credentials
 const baseUrl = 'https://api.meaningcloud.com/sentiment-2.1';
 const apiKey = process.env.API_KEY;
 
-console.log(`Your API key is ${apiKey}`);
-
-
-
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('dist/index.html'))
-})
+    res.sendFile(path.resolve('dist/index.html'));
+});
 
-// designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
-})
+app.listen(8081, function () {
+    console.log('Example app listening on port 8081!');
+});
 
 app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
-})
+    res.send(mockAPIResponse);
+});
+
+let inputData = [];
+
+function pushData(meaningCloudData, res) {
+    inputData.push(meaningCloudData);
+    res.send(inputData[inputData.length - 1]);
+}
+
+app.post('/article-api', async (req, res) => {
+    const fetch = (await import('node-fetch')).default;
+    const articleUrl = req.body.url;
+    console.log(`The data that you entered: ${articleUrl}`);
+    const apiURL = `${baseUrl}?key=${apiKey}&lang=en&url=${encodeURIComponent(articleUrl)}`;
+
+    const form = new FormData();
+    form.append('key', apiKey);
+    form.append('lang', 'en');
+    form.append('model', 'general');
+    form.append('url', articleUrl);
+
+    try {
+        const apiResponse = await fetch(apiURL, { // Fixed: Use apiURL instead of baseUrl
+            method: 'POST',
+            body: form,
+            headers: form.getHeaders(),
+        });
+
+        if (!apiResponse.ok) {
+            throw new Error(`HTTP error! status: ${apiResponse.status}`);
+        }
+
+        const meaningCloudData = await apiResponse.json(); // Fixed: Correct variable name
+        pushData(meaningCloudData, res);
+        res.json(meaningCloudData); // Simplified: Directly send JSON response
+    } catch (error) {
+        console.error('Error making API request:', error);
+        res.status(500).send('Server error occurred');
+    }
+});
