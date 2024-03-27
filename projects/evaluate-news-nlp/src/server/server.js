@@ -47,7 +47,7 @@ app.get('/test', function (req, res) {
 // POST method
 app.post('/articleApi', async (req, res) => {
     projectInput = req.body.url;
-    const apiURL = `${baseURL}key=${apiKey}&url=${projectInput}&lang=en`
+    const apiURL = `${baseURL}?key=${apiKey}&url=${projectInput}&lang=en`
     const response = await fetch(apiURL);
     console.log('response url:', response);
     try {
