@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
-const API_KEY = process.env.API_KEY;
+const apiKey = process.env.API_KEY;
 
 const path = require('path')
 const express = require('express')
