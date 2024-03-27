@@ -21,7 +21,7 @@ function handleSubmit(event) {
     console.log(`URL submitted: ${urlInput}`);
     // Fetch() call to your backend endpoint
 
-    fetch('/article-api', {
+    fetch('/articleApi', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: urlInput }),

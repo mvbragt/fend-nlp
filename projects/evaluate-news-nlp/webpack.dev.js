@@ -36,9 +36,4 @@ module.exports = {
             protectWebpackAssets: false
         })
     ],
-    devServer: {
-        proxy: {
-            '/article-api': 'http://localhost:8081'
-        }
-    }
 }
