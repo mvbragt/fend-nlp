@@ -19,7 +19,7 @@ let projectInput = [];
 
 // Middleware
 // Parse incoming request bodies in a middleware before your handlers, through req.body property.
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 const baseURL = 'https://api.meaningcloud.com/sentiment-2.1';
 const port = 8080;
