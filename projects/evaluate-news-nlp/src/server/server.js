@@ -15,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')));
 
+let projectInput = [];
 
 // Middleware
 // Parse incoming request bodies in a middleware before your handlers, through req.body property.
@@ -36,15 +37,18 @@ const server = app.listen(process.env.PORT || 8080, function () {
 
 
 
-
 // test api
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
 });
 
+
+
 // POST method
 app.post('/articleApi', async (req, res) => {
-    const response = await fetch(`${baseURL}?key=${API_KEY}&lang=auto&url=${req.body}`);
+    projectInput = req.body.url;
+    const apiURL = `${baseURL}key=${apiKey}&url=${userInput}&lang=en`
+    const response = await fetch(apiURL);
     console.log('response url:', response);
     try {
         const data = await response.json();

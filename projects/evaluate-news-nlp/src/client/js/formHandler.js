@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Ensure the form is present before attaching the event listener
+
     const form = document.getElementById('form');
     if (form) {
         form.addEventListener('submit', handleSubmit);
@@ -19,7 +19,6 @@ function handleSubmit(event) {
 
     // Logging url
     console.log(`URL submitted: ${urlInput}`);
-    // Fetch() call to your backend endpoint
 
     fetch('/articleApi', {
         method: 'POST',
@@ -28,10 +27,14 @@ function handleSubmit(event) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Process and display the response data
+            console.log(data);
             // update the UI with the response
         })
         .catch((error) => {
             console.error('Error:', error.json );
         });
+}
+
+function updateUI(){
+
 }
