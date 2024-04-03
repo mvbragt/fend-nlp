@@ -8,22 +8,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-function handleSubmit(event) {
+export function handleSubmit(event) {
     event.preventDefault(); // Prevent the default form submission
-    const urlInput = document.getElementById('URL').value;
+    const txtInput = document.getElementById('inputText').value;
 
-    if (!urlInput) {
-        alert('Please enter a URL.');
+    if (!inputText) {
+        alert('Please enter some text.');
         return;
     }
 
     // Logging url
-    console.log(`URL submitted: ${urlInput}`);
+    console.log(`inputText submitted: ${inputText}`);
 
-    fetch('/articleApi', {
+    fetch('http://localhost:8081/articleApi', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: urlInput }),
+        body: JSON.stringify({ inputText: inputText }),
     })
         .then(response => response.json())
         .then(data => {
