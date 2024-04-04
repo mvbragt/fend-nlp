@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
-
+    "jest-environment-jsdom": "^29.7.0",
+    "workbox-webpack-plugin": "^7.0.0"
   }
 }
