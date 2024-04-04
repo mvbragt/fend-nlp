@@ -20,20 +20,25 @@
     </header>
 
     <main>
-        <section>
+        <section style="text-align:center">
             <h1>Enter Article Text for Sentiment Analysis</h1>
             <form id="form" class="form" onsubmit="return handleSubmit(event)">
-                <label for="inputText">Article text:</label>
-                <input id="inputText" type="text" value="" placeholder="Enter your text here">
+                <label for="inputUrl">Article text:</label>
+                <input id="inputUrl" type="text" value="" placeholder="Enter your url here">
                 <input type="submit" value="Submit">
             </form>
         </section>
 
-        <section class="results-outer">
+        <section class="results-outer" style="text-align:center">
             <div class="results">
                 <strong>Evaluation Results:</strong>
                 <p>your request was:</p>
                 <div id="results"></div>
+                <div id="sentiment">Sentiment: <span id="sentiment-result">waiting...</span></div>
+                <div id="confidence">Confidence: <span id="confidence-result">waiting...</span></div>
+                <div id="agreement">Agreement: <span id="agreement-result">waiting...</span></div>
+                <div id="subjectivity">Subjectivity: <span id="subjectivity-result">waiting...</span></div>
+                <div id="irony">Irony: <span id="irony-result">waiting...</span></div>
             </div>
         </section>
     </main>
@@ -41,5 +46,15 @@
     <footer>
         <p>This is a footer</p>
     </footer>
+
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
     </body>
 </html>

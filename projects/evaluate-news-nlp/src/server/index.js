@@ -39,15 +39,20 @@ app.get('/test', function (req, res) {
 
 // POST method
 app.post('/articleApi', async (req, res) => {
-    projectInput = req.body.url;
-    const apiURL = `${baseURL}?key=${apiKey}&txt=${projectInput}&lang=en`
-    const response = await fetch(apiURL);
-    console.log('response url:', response);
+    projectInput = req.body.inputUrl;
+    const apiURL = `${baseURL}?key=${apiKey}&url=${encodeURIComponent(projectInput)}&lang=en`
     try {
-        const data = await response.json();
-        res.send(data);
+        const response = await fetch(apiURL);
+        if (response.ok) {
+            const data = await response.json();
+            res.send(data);
+        } else {
+            console.error('API request failed with status:', response.status);
+            res.status(500).send({ error: 'Failed to fetch data from the external API' });
+        }
     } catch (error) {
-        console.log("error", error);
+        console.error("Error:", error);
+        res.status(500).send({ error: 'An error occurred while fetching data from the external API' });
     }
 });
 
